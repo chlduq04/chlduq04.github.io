@@ -1,9 +1,13 @@
 function supportsImports() {
-  return 'import' in document.createElement('link');
+	return 'import' in document.createElement('link');
 }
 
 if (supportsImports()) {
-  // 지원하므로 그대로 진행합니다.
+	var link = document.querySelector('link[rel="import"]');
+	var content = link.import;
+	var el = content.querySelector('#common');
+	document.body.appendChild(el.cloneNode(true));
 } else {
-  // 파일을 로딩하기 위한 다른 라이브러리나 require 시스템들을 사용하세요.
+	alert("import를 지원하지 않습니다.");
+	window.location.href = "../index.html";
 }
