@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Multi Texture</title>
+</head>
+<body>
+	<canvas id="webgl_z" width="400" height="300"></canvas>
+</body>
+<!-- vs-shader에서 varying을 이용하여 각 정점의 정보를 각 fs-shader로 넘겨줄 수 있다. -->
+<!-- 하지만 이때 varying을 사용해야하며 varying을 사용하는 경우에는 highp와 같은 정확도 제한자를 반드시 써줘야 한다. -->
+<script id="shader-vs-z" type="x-shader/x-vertex">
+	//포지션, 색, 그리고 노멀 벡터
+	attribute vec3 aVertexPosition;
+	attribute vec3 aVertexColor;
+	attribute vec3 aVertexNormal;
+
+	uniform mat3 uNormalMatrix;
+	uniform mat4 uMVMatrix;
+	uniform mat4 uPMatrix;
+
+	// varying -> fragment shader에서 사용
+	varying highp vec3 vColor;
+	varying highp vec3 L;
+	varying highp vec3 N;
+
+	void main(void) {
+		// 포지션을 메트릭스 곱으로써 x, y, z 위치를 설정한다.
+		gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+        // 점과원 위치 설정
+        vec3 pointLightPosition = vec3(1.0,2.0,-1.0);
+		// 점광원의 방향을 설정, 이때 빛의 위치에서 물체의 위치를 빼면 빛의 방향이 나온다. 이것을 normalize하여 합이 1인 벡터로 변환
+        vec3 pointLightDirection = normalize(vec3(pointLightPosition.xyz - aVertexPosition.xyz));
+		// 주변광의 색을 설정
+        vec3 ambientColor = vec3(0.1, 0.1, 0.1);
+
+		// 점광원의 위치를 계산
+		L = vec3(uPMatrix * uMVMatrix * vec4(pointLightDirection, 1.0));
+		// 
+		N = uNormalMatrix * aVertexNormal;
+		// js에서 정해준 정점의 색들
+		vColor = aVertexColor;
+	}
+</script>
+<script id="shader-fs-z" type="x-shader/x-fragment">
+	varying highp vec3 vColor;
+	varying highp vec3 N;
+	varying highp vec3 L;
+
+	void main(void) {   
+		// 램버트 반사를 위해 스칼라곱을 한다.
+		highp float lambert = max(dot(normalize(N), normalize(L)), 0.0);
+		// 그리고 색은 램버트 계산을 하고 색의 진하기는 1.0이다.
+    	gl_FragColor = vec4(vColor * lambert, 1.0);
+	}
+</script>
+<script type="text/javascript" src="math.js"></script>
+<script type="text/javascript" src="Vector3.js"></script>
+<script type="text/javascript" src="sphere_mesh.js"></script>
+<script type="text/javascript" src="webgl-debug.js"></script>
+<script type="text/javascript" src="plain_mesh.js"></script>
+<script type="text/javascript" src="requestAnimationFrame.js"></script>
+<script type="text/javascript" src="webgl6.js"></script>
+</html>

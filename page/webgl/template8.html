@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Light</title>
+</head>
+<body>
+	<canvas id="webgl_z" width="500" height="500"></canvas>
+</body>
+<!-- vs-shader에서 varying을 이용하여 각 정점의 정보를 각 fs-shader로 넘겨줄 수 있다. -->
+<!-- 하지만 이때 varying을 사용해야하며 varying을 사용하는 경우에는 highp와 같은 정확도 제한자를 반드시 써줘야 한다. -->
+<script id="shader-vs-z" type="x-shader/x-vertex">
+	uniform mat4 uMVMatrix;
+	uniform mat4 uPMatrix;
+	uniform vec3 uPointLightVec3;
+
+	attribute vec3 aVertexPosition;
+	attribute vec4 aVertexColor;
+	attribute vec3 aVertexNormal;
+
+	varying highp vec4 vColor;
+	varying highp vec3 vPosition;
+	varying highp vec3 N;
+
+	void main(void) {
+		gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);    
+        vColor = aVertexColor;
+        vPosition = aVertexPosition;
+		N = aVertexNormal; 		
+	}
+	// 대부분의 연산을 fragment shader에서 처리하기 때문에 값을 넘기는 작업만 한다.
+</script>
+
+<script id="shader-fs-z" type="x-shader/x-fragment">
+	uniform highp mat3 uNormalMatrix;
+	uniform highp mat4 uMVMatrix;
+	uniform highp mat4 uPMatrix;
+
+	varying highp vec4 vColor;
+	varying highp vec3 vPosition;
+	varying highp vec3 N;
+
+	void main(void) {
+		// 빛의 위치
+        highp vec3 pointLightPosition = vec3(5.0, 15.0, 5.0);
+		// 빛의 방향은 빛의 위치 - 물체의 위치
+        highp vec3 pointLightDirection = vec3(pointLightPosition.xyz - vPosition.xyz);
+		// 매트릭스 변환
+		highp mat4 mvp = uPMatrix * uMVMatrix;
+
+		// 빛의 입사벡터 L
+        highp vec3 L = vec3(mvp * vec4(pointLightDirection, 1.0));
+		// 눈으로 들어가는 빛의 방향벡터 V
+		highp vec3 V = -vec3(mvp * vec4(vPosition,1.0));
+
+		// 빛의 입사벡터 방향
+   		highp vec3 l = normalize(L);
+		// 물체에서의 법선 벡터 N과 화면의 normal 매트릭스 곱
+    	highp vec3 n = normalize(uNormalMatrix * N);
+		// 빛의 방향
+    	highp vec3 v = normalize(V);
+		// 반사벡터 = reflect(반사 요소 계산) 빛의 입사와 물체의 법선벡터
+		highp vec3 R = reflect(l, n);
+
+		// 주변광 분산광 반사광의 강도
+		highp float AmbientIntensity = 0.3;
+		highp vec3 DiffuseLightIntensity = vec3(0.9, 0.9, 0.9);
+		highp float SpecularIntensity = 0.5;
+		// 램버트
+		highp float diffuseLambert = dot(l,n);
+		// 반사광의 세기. 값이 커질수록 빛이 뭉친다.
+		highp float shininess = 128.0;
+		
+		// 반사벡터와 빛의 방향의 스칼라곱과 shininess의 값으로 X^Y를 하여 power을 구한다
+		highp float specular = pow( max(0.0,dot(R,v)), shininess);
+
+		// 주변광의 색
+		highp vec3 AmbientColour = vec3(0.1, 0.1, 0.1);
+		// 분산광의 색
+		highp vec3 DiffuseMaterialColour = vColor.xyz;
+		// 반사광의 색
+		highp vec3 SpecularColour = vec3(1.0, 1.0, 1.0);
+    
+	    gl_FragColor = vec4(AmbientColour*AmbientIntensity + diffuseLambert * DiffuseMaterialColour*DiffuseLightIntensity +SpecularColour * specular*SpecularIntensity, vColor.a);
+	}
+</script>
+<script type="text/javascript" src="math.js"></script>
+<script type="text/javascript" src="Vector3.js"></script>
+<script type="text/javascript" src="sphere_mesh.js"></script>
+<script type="text/javascript" src="plain_mesh.js"></script>
+<script type="text/javascript" src="webgl-debug.js"></script>
+<script type="text/javascript" src="requestAnimationFrame.js"></script>
+<script type="text/javascript" src="webgl8.js"></script>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>House Mate</title>
+<link rel="stylesheet" type="text/css" href="reset.css">
+<link rel="stylesheet" type="text/css" href="housemate_layout.css">
+<link rel="stylesheet" type="text/css" href="icon-style.css">	
+</head>
+<body style="">
+	<header style="width : 100%;background: #45484d; /* Old browsers */background: -moz-linear-gradient(top,  #45484d 0%, #000000 100%); /* FF3.6+ */background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#45484d), color-stop(100%,#000000)); /* Chrome,Safari4+ */background: -webkit-linear-gradient(top,  #45484d 0%,#000000 100%); /* Chrome10+,Safari5.1+ */background: -o-linear-gradient(top,  #45484d 0%,#000000 100%); /* Opera 11.10+ */background: -ms-linear-gradient(top,  #45484d 0%,#000000 100%); /* IE10+ */background: linear-gradient(to bottom,  #45484d 0%,#000000 100%); /* W3C */filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 ); /* IE6-9 */">
+		<div style="float:left;width:40px;height:40px;margin:5px 0px 5px 15px;"></div>
+		<div style="float:right;width:90px;height:40px;margin:5px 15px 5px 0px;">			
+		</div>
+	</header>
+	<section>
+		<div id="housemate_view_container">
+		</div>
+		<div id="housemate_ui_container" style="width:100%;">
+			<div style="width : 100%;position:relative;">
+				<div style="width:240px;margin:20px auto 10px auto;height:30px;">
+					<select id="" style="width:100%;height:100%;">
+						<option value="none" selected="selected">None</option>
+						<optgroup label="도형">
+							<option value="block">육면체</option>
+							<option value="Sphere">구</option>
+						</optgroup>
+						<optgroup label="가전제품">
+							<option value="audio">오디오</option>
+							<option value="tv">텔레비전</option>
+						</optgroup>
+						<optgroup label="침구류">
+							<option value="audi">Audi</option>
+						</optgroup>
+						<optgroup label="그 외">
+						</optgroup>
+					</select>
+				</div>
+				<div style="overflow:hidden;">
+					<div id="canvas_container" style="width : 240px;height:240px;margin: 10px auto;left: 0;right: 0;border: 1px solid #bdc3c7;">					
+					</div>
+					<div style = "width : 240px;margin: 0 auto;	left: 0;right: 0;overflow:hidden;">
+						<label for="" style="display: block;padding: 5px;height:30px;"><span style="float:left;width : 50px;font-size: 16px;line-height: 30px;">가로</span><input type="text" /></label>
+						<label for="" style="display: block;padding: 5px;height:30px;"><span style="float:left;width : 50px;font-size: 16px;line-height: 30px;">세로</span><input type="text" /></label>
+						<label for="" style="display: block;padding: 5px;height:30px;"><span style="float:left;width : 50px;font-size: 16px;line-height: 30px;">높이</span><input type="text" /></label>
+						<label for="" style="display: block;padding: 5px;height:30px;"><span style="float:left;width : 50px;font-size: 16px;line-height: 30px;">메모</span><input type="text" placeholder="상품배송에 대해 남길 말"/></label>
+						<label for="new_obj_bt" style="float:right;display:inline-block;padding: 10px;font-size: 25px;font-weight: 400;line-height: 1;border: none;border-radius: 4px;-webkit-transition: border .25s linear,color .25s linear,background-color .25s linear;transition: border .25s linear,color .25s linear,background-color .25s linear;-webkit-font-smoothing: subpixel-antialiased;">
+							<div class="fs1" aria-hidden="true" data-icon="&#xe06a;"></div>
+							<input id="new_obj_bt" type="button"/>
+						</label>
+					</div>
+				</div>
+			</div>
+			<div></div>
+		</div>
+	</section>
+	<footer></footer>
+</body>
+<script id="shader-vs-z" type="x-shader/x-vertex">
+	attribute vec3 aVertexPosition;
+	attribute vec3 aVertexColor;
+	attribute vec3 aVertexNormal;
+
+	uniform mat3 uNormalMatrix;
+	uniform mat4 uMVMatrix;
+	uniform mat4 uPMatrix;
+
+	varying highp vec3 vColor;
+	varying highp vec3 L;
+	varying highp vec3 N;
+
+	void main(void) {
+		gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+        
+        vec3 pointLightPosition = vec3(1.0,2.0,-1.0);
+        vec3 pointLightDirection = normalize(vec3(pointLightPosition.xyz - aVertexPosition.xyz));
+        vec3 ambientColor = vec3(0.1, 0.1, 0.1);
+
+		L = vec3(uPMatrix * uMVMatrix * vec4(pointLightDirection, 1.0));
+		N = uNormalMatrix * aVertexNormal;
+	 		
+		vColor = aVertexColor;
+	}
+</script>
+<script id="shader-fs-z" type="x-shader/x-fragment">
+	varying highp vec3 vColor;
+	varying highp vec3 N;
+	varying highp vec3 L;
+
+	void main(void) {   
+		highp float lambert = max(dot(normalize(N), normalize(L)), 0.0);
+    	gl_FragColor = vec4(vColor * lambert, 1.0);
+	}
+</script>
+</script>
+<script type="text/javascript" src="math.js"></script>
+<script type="text/javascript" src="Vector3.js"></script>
+<script type="text/javascript" src="requestAnimationFrame.js"></script>
+<script type="text/javascript" src="webgl-debug.js"></script>
+<script type="text/javascript" src="plain_mesh.js"></script>
+<script type="text/javascript" src="sphere_mesh.js"></script>
+<script type="text/javascript" src="jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="housemate_common.js"></script>
+<script type="text/javascript" src="housemate_layout.js"></script>
+<script type="text/javascript" src="housemate_gl.js"></script>
+<script type="text/javascript" src="housemate_flow.js"></script>
+</html>

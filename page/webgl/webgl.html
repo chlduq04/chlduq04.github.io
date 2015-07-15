@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Insert title here</title>
+</head>
+<body>
+	<canvas id="webgl" width="400" height="300"></canvas>
+</body>
+<script>
+	window.onload = setupWebGL;
+	var gl = null;
+	function getE(id){
+		return document.getElementById(id);
+	}
+	
+	function setupWebGL(){
+		try{
+			var canvas = getE("webgl");
+			gl = canvas.getContext("webgl")||canvas.getContext("experimental-webgl");
+		}catch(e){
+			alert("gl을 지원하지 않습니다.")			
+		}
+		
+		if(gl != null){
+			//배경 색 지정
+			gl.clearColor(0.5,0.5,0.5,1.0);
+			//배경 색 적용
+			gl.clear(gl.COLOR_BUFFER_BIT);
+		}
+	}
+</script>
+</html>
+
+<!-- 
+위의 코드는 캔버스에 WEBGL을 세팅하는 과정입니다. 이때 GL을 지원하지 않는 브라우저는 경고가 뜨게 됩니다.
+ -->

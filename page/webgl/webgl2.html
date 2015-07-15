@@ -1,0 +1,161 @@
+<!-- 
+지금은 그져 canvas에 삼각형을 그렸다.
+하지만 webgl을 이용하면 3차원 좌표를 표현 할 수 있다.
+이를 위해서는 변환을 알아야 한다.
+월드 뷰 뷰포트변환으로 변환을 해야하는데
+
+1. 월드변환은 물체를 세계에 배치시키는 것이다.
+또한 회전하거나 크기변환을 하기도 한다.
+
+2. 뷰 변화은 내가 이 물체들을 바라볼 위치를 설정하는 것이다.
+
+3. 그리고 그 뷰와 물체와의 입체감을 위해 물체에 원근감을 적용하고
+그릴 필요가 없다면 그리지 않는다.
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<title>Insert title here</title>
+</head>
+<body>
+	<canvas id="webgl" width="400" height="300">
+	</canvas>
+</body>
+<script id="shader-vs" type="x-shader/x-vertex">
+	attribute vec3 aVertexPosition;
+	void main(void){
+		gl_PointSize = 0.5;
+		gl_Position = vec4(aVertexPosition, 1.0);
+	}
+</script>
+<script id="shader-fs" type="x-shader/x-fragment">
+	void main(void){
+		gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+	}
+</script>
+
+<script>
+	window.onload = initGl;
+
+	var canvas = null;
+	var gl = null;
+	var glProgram = null;
+	var fragmentShader = null;
+	var vertexShader = null;
+	var vertexPositionAttribute = null;
+	var trianglesVerticeBuffer = null;
+	
+	function getE(id){
+		return document.getElementById(id);
+	}
+	
+	function initGl(){
+		try{
+			canvas = getE("webgl");
+			gl = canvas.getContext("webgl")||canvas.getContext("experimental-webgl");
+		}catch(e){
+			alert("gl을 지원하지 않습니다.")			
+		}
+
+		if(gl != null){
+
+			setupWebGL();
+			initShaders();
+			setupBuffers();
+			drawScene();
+		}
+	}
+
+	function setupWebGL(){
+		// 배경 색 지정
+		gl.clearColor(0.5,0.5,0.5,1.0);
+		// 배경 색 적용
+		gl.clear(gl.COLOR_BUFFER_BIT);
+		
+		gl.viewport(0, canvas.height/2.0, canvas.width/2.0, canvas.height/2.0);
+	}
+	
+	function initShaders(){
+
+		// 셰이더를 붙일 프로그램을 만들어서
+		glProgram = gl.createProgram();
+
+		// 각 버텍스 셰이더와 픽셸 세이더를 만드는 API호출
+		vertexShader = makeShader(getE("shader-vs").innerHTML.trim(), gl.VERTEX_SHADER);
+		pixelShader = makeShader(getE("shader-fs").innerHTML.trim(), gl.FRAGMENT_SHADER);
+		
+		//셰이더를 붙이고
+		gl.attachShader(glProgram, vertexShader);
+		gl.attachShader(glProgram, pixelShader);
+		
+		//셰이더를 gl이 사용할 수 있도록 link한 후
+		gl.linkProgram(glProgram);
+		
+		if(!gl.getProgramParameter(glProgram, gl.LINK_STATUS)){
+			alert("program 실패");
+		}
+		
+		//사용
+		gl.useProgram(glProgram);
+	}
+	
+	function makeShader(src, type){
+		// 셰이더 생성
+		var shader = gl.createShader(type);
+
+		// 셰이더에 소스 붙이기
+		gl.shaderSource(shader, src);
+		
+		// 컴파일
+		gl.compileShader(shader);
+		
+		if(!gl.getShaderParameter(shader, gl.COMPILE_STATUS)){
+			alert("shader 실패");
+		}
+		return shader;
+	}
+	
+	function setupBuffers(){
+		// 버텍스 추가
+		// webgl에서 그리는 방법은 점과 선을 이용해야 한다.
+		var triangleVertices = [ 
+		          		      -0.5, 0.5, 0.0,
+		          			   0.0, 0.0, 0.0,
+		          		      -0.5, -0.5, 0.0,
+		          		      
+		          		       0.5, 0.5, 0.0,
+		          			   0.0, 0.0, 0.0,
+		          		       0.5, -0.5, 0.0,
+		          			 ]
+		
+		// 버퍼를 만들어서 
+		trianglesVerticeBuffer = gl.createBuffer();
+		// 버퍼에 우리가 만든 정점을 추가한다.
+		gl.bindBuffer(gl.ARRAY_BUFFER, trianglesVerticeBuffer);
+		// 그리고 STATIC_DRAW, DYNAMIC_DRAW, STREAM_DRAW의 세가지 방법으로 버퍼에 사용법을 명시해주는데
+		//     (변경을 하지 않음 , 그릴때마다 재설정   , STATIC과 유사하나 자주 사용하지 않음)이라는 특징을 가지고 있다.
+		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(triangleVertices), gl.STATIC_DRAW);
+	}
+	
+	function drawScene(){
+		// glProgram에서 aVertexPosition의 값을 얻어온다
+		vertexPositionAttribute = gl.getAttribLocation(glProgram, "aVertexPosition");
+		// 
+		gl.enableVertexAttribArray(vertexPositionAttribute);
+		
+		gl.bindBuffer(gl.ARRAY_BUFFER, trianglesVerticeBuffer);
+		gl.vertexAttribPointer(vertexPositionAttribute, 3, gl.FLOAT, false, 0, 0);
+		//gl에 그린다.
+		gl.drawArrays(gl.TRIANGLES, 0, 6);
+		//gl.LINES, gl.POINTS, gl.TRIANGLES
+	}
+		
+	
+</script>
+</html>
+
+<!-- 
+지금은 SHADER을 초기화하고 적용하는 코드입니다. SHADER는 버텍스와 픽셀 셰이더로 이루어져 있습니다.(DIRECTX나 WEBGL에서 SHADER을 이용하는 것과 같은 방법입니다)
+또한 위의 vec3는 3차원 vector를 의미하는 것으로  [1.0, 1.0, 1.0]과 같은 의미라고 보시면 됩니다. vec4도 같은 의미입니다.
+
+ -->

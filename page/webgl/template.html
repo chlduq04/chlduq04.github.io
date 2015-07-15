@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Basic</title>
+</head>
+<body>
+	<canvas id="webgl_z" width="400" height="300"></canvas>
+</body>
+<script id="shader-vs-z" type="x-shader/x-vertex">
+	attribute vec3 aVertexPosition;
+	attribute vec3 aVertexColor;
+	uniform mat4 uMVMatrix;
+	uniform	mat4 uPMatrix;
+	varying highp vec4 vColor;
+	void main(void){
+		gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+ 		vColor = vec4(aVertexColor, 1.0);
+	}
+</script>
+<script id="shader-fs-z" type="x-shader/x-fragment">
+	varying highp vec4 vColor; 
+	void main(void){
+		gl_FragColor = vColor;
+	}
+</script>
+<script type="text/javascript" src="math.js"></script>
+<script type="text/javascript" src="requestAnimationFrame.js"></script>
+<script type="text/javascript" src="webgl.js"></script>
+</html>
