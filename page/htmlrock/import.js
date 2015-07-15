@@ -1,8 +1,4 @@
-function supportsImports() {
-	return 'import' in document.createElement('link');
-}
-
-$(document).ready(function(){
+$(window).load(function(){
 	if (supportsImports()) {
 		var link = document.querySelector('link[rel="import"]');
 		var content = link.import;
@@ -10,7 +6,6 @@ $(document).ready(function(){
 		document.body.appendChild(el.cloneNode(true));
 	} else {
 		alert("import를 지원하지 않습니다.");
-		window.location.href = "../index.html";
 	}	
 })
 
