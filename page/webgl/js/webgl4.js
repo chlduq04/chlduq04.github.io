@@ -32,7 +32,8 @@ var WebGL = function () {
 	this.pMatrix = mat4.create();
 
 	// 텍스처 개체 로드
-	this.textureImage = null;
+	this.STONE_TEXTURE = 0, this.WEBGL_LOGO_TEXTURE = 1, 
+	this.texture = [], this.textureImage = [];
 
 	// 회전각
 	this.angle = 0.01;
@@ -94,6 +95,7 @@ WebGL.prototype.getMatrixUniforms = function () {
 	this.glProgram.pMatrixUniform = this.gl.getUniformLocation(this.glProgram, "uPMatrix");
 	this.glProgram.mvMatrixUniform = this.gl.getUniformLocation(this.glProgram, "uMVMatrix");
 	this.glProgram.samplerUniform = this.gl.getUniformLocation(this.glProgram, "uSampler");
+	this.glProgram.samplerUniform2 = this.gl.getUniformLocation(this.glProgram, "uSampler2");
 }
 
 WebGL.prototype.setMatrixUniforms = function () {
@@ -104,35 +106,43 @@ WebGL.prototype.setMatrixUniforms = function () {
 
 WebGL.prototype.loadTexture = function () {
 	var self = this;
-	this.textureImage = new Image();
-	this.textureImage.onload = function () {
-		self.setupTexture();
+	this.textureImage[this.STONE_TEXTURE] = new Image();
+	this.textureImage[this.STONE_TEXTURE].onload = function () {
+		self.setupTexture(self.STONE_TEXTURE);
+		self.gl.uniform1i(self.glProgram.samplerUniform, self.STONE_TEXTURE);
 	}
-	this.textureImage.src = "brick.jpg";
+	this.textureImage[this.STONE_TEXTURE].src = "img/brick.jpg";
+	
+	this.textureImage[this.WEBGL_LOGO_TEXTURE] = new Image();
+	this.textureImage[this.WEBGL_LOGO_TEXTURE].onload = function () {
+		self.setupTexture(self.WEBGL_LOGO_TEXTURE);
+		self.gl.uniform1i(self.glProgram.samplerUniform, self.WEBGL_LOGO_TEXTURE);
+	}
+	this.textureImage[this.WEBGL_LOGO_TEXTURE].src = "img/webgl_logo-512px.png";
+	
+	this.glProgram.uDoTexturing = this.gl.getUniformLocation(this.glProgram, "uDoTexturing");          		
+	this.gl.uniform1i(this.glProgram.uDoTexturing, 1);
 }
 
-WebGL.prototype.setupTexture = function () {
+WebGL.prototype.setupTexture = function (i) {
+	// 텍스쳐 active 
+	this.gl.activeTexture(this.gl.TEXTURE0 + i);
 	// 텍스쳐 만들기
-	var texture = this.gl.createTexture();
+	this.texture[i] =  this.gl.createTexture();
 	// 텍스쳐를 바인드
-	this.gl.bindTexture(this.gl.TEXTURE_2D, texture);
+	this.gl.bindTexture(this.gl.TEXTURE_2D, this.texture[i]);
 	// 텍스쳐 데이터 저장방식 : 지금은 수직뒤집기
 	this.gl.pixelStorei(this.gl.UNPACK_FLIP_Y_WEBGL, true);
 	//
-	this.gl.texImage2D(this.gl.TEXTURE_2D, 0, this.gl.RGBA, this.gl.RGBA, this.gl.UNSIGNED_BYTE, this.textureImage);
+	this.gl.texImage2D(this.gl.TEXTURE_2D, 0, this.gl.RGBA, this.gl.RGBA, this.gl.UNSIGNED_BYTE, this.textureImage[i]);
 	// 텍스처의 확장을 설정
 	this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
 	// 텍스쳐의 축소를 설정
 	this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MIN_FILTER, this.gl.NEAREST);
 	// 이 경우 NEAREST를 사용 : 가장 가까운 텍스쳐점을 선택해서 빠르지만 부드럽지 못함
 	// LINEAR등 다른 옵션이 존재한다.
-	this.gl.uniform1i(this.glProgram.samplerUniform, 0);
-	
-	// 텍스쳐를 쓸 것인지 아닌지
-	this.glProgram.uDoTexturing = this.gl.getUniformLocation(this.glProgram, "uDoTexturing");
-	this.gl.uniform1i(this.glProgram.uDoTexturing, 1);
 
-	if (!this.gl.isTexture(texture)) {
+	if (!this.gl.isTexture(this.texture[i])) {
 		alert("Error : Texture is invalid");
 	}
 }

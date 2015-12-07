@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
@@ -65,7 +66,7 @@ quat4.str=function(a){return"["+a[0]+", "+a[1]+", "+a[2]+", "+a[3]+"]"};
 //http://paulirish.com/2011/requestanimationframe-for-smart-animating/
 //http://my.opera.com/emoller/blog/2011/12/20/requestanimationframe-for-smart-er-animating
 
-//requestAnimationFrame polyfill by Erik Möller. fixes from Paul Irish and Tino Zijdel
+//requestAnimationFrame polyfill by Erik M철ller. fixes from Paul Irish and Tino Zijdel
 
 //MIT license
 (function() {
@@ -111,17 +112,17 @@ quat4.str=function(a){return"["+a[0]+", "+a[1]+", "+a[2]+", "+a[3]+"]"};
 		this.fragmentShader = null;
 		this.vertexShader = null;
 
-		// 정점을 그리기 위한 var
+		// �젙�젏�쓣 洹몃━湲� �쐞�븳 var
 		this.vertexPositionAttribute = null;
 		this.trianglesVerticeBuffer = null;
 
-		// 색지정을 위한 var
+		// �깋吏��젙�쓣 �쐞�븳 var
 		this.vertexColorAttribute = null;
 		this.trianglesColorBuffer = null;
 
 		this.angle = 0.0;
 		
-		//모델 뷰와 투영 매트릭스를 위한 두 번수
+		//紐⑤뜽 酉곗� �닾�쁺 留ㅽ듃由��뒪瑜� �쐞�븳 �몢 踰덉닔
 		this.mvMatrix = mat4.create();
 		this.pMatrix = mat4.create();
 	}
@@ -132,7 +133,7 @@ quat4.str=function(a){return"["+a[0]+", "+a[1]+", "+a[2]+", "+a[3]+"]"};
 			this.canvas = getE("webgl_z");
 			this.gl = this.canvas.getContext("webgl") || this.canvas.getContext("experimental-webgl");
 		} catch (e) {
-			alert("gl을 지원하지 않습니다.")
+			alert("gl�쓣 吏��썝�븯吏� �븡�뒿�땲�떎.")
 		}
 
 		if (this.gl != null) {
@@ -155,20 +156,20 @@ quat4.str=function(a){return"["+a[0]+", "+a[1]+", "+a[2]+", "+a[3]+"]"};
 	WebGL.prototype.setupWebGL = function() {
 
 		this.gl.clearColor(0.5, 0.5, 0.5, 1.0);
-		// 배경 색 적용
+		// 諛곌꼍 �깋 �쟻�슜
 		this.gl.clear(this.gl.COLOR_BUFFER_BIT);
 
 		this.gl.viewport(0, 0, this.canvas.width, this.canvas.height);
 
-		//시야, 종횡비, 전방, 후방
+		//�떆�빞, 醫낇슒鍮�, �쟾諛�, �썑諛�
 		mat4.perspective(45, this.canvas.width / this.canvas.height, 0.1 , 100.0, this.pMatrix);
-		// mv matrix를 x = 0, y = 0, z = 0, r = 0으로 초기화 시킨다.
+		// mv matrix瑜� x = 0, y = 0, z = 0, r = 0�쑝濡� 珥덇린�솕 �떆�궓�떎.
 		// [1, 0, 0, 0, 
 		//  0, 1, 0, 0, 
 		//  0, 0, 1, 0, 
 		//  0, 0, 0, 1]
 		mat4.identity(this.mvMatrix);
-		// matrix의 이동
+		// matrix�쓽 �씠�룞
 		mat4.translate(this.mvMatrix, [0, 0, -2.0]);
 	}
 
@@ -176,26 +177,26 @@ quat4.str=function(a){return"["+a[0]+", "+a[1]+", "+a[2]+", "+a[3]+"]"};
 
 		this.glProgram = this.gl.createProgram();
 
-		// 각 버텍스 셰이더와 픽셸 세이더를 만드는 API호출
+		// 媛� 踰꾪뀓�뒪 �뀺�씠�뜑�� �뵿�끂 �꽭�씠�뜑瑜� 留뚮뱶�뒗 API�샇異�
 		var vertexShader = this.makeShader(getE("shader-vs-z").innerHTML.trim(), this.gl.VERTEX_SHADER);
 		var pixelShader = this.makeShader(getE("shader-fs-z").innerHTML.trim(), this.gl.FRAGMENT_SHADER);
 
-		//셰이더를 붙이고
+		//�뀺�씠�뜑瑜� 遺숈씠怨�
 		this.gl.attachShader(this.glProgram, vertexShader);
 		this.gl.attachShader(this.glProgram, pixelShader);
 
-		//셰이더를 gl이 사용할 수 있도록 link한 후
+		//�뀺�씠�뜑瑜� gl�씠 �궗�슜�븷 �닔 �엳�룄濡� link�븳 �썑
 		this.gl.linkProgram(this.glProgram);
 
 		if (!this.gl.getProgramParameter(this.glProgram, this.gl.LINK_STATUS)) {
-			alert("program 실패");
+			alert("program �떎�뙣");
 		}
-		//사용
+		//�궗�슜
 		this.gl.useProgram(this.glProgram);
 	}
 
 	WebGL.prototype.setupBuffers = function() {
-		// 버텍스 추가  webgl에서 그리는 방법은 점과 선을 이용해야 한다.
+		// 踰꾪뀓�뒪 異붽�  webgl�뿉�꽌 洹몃━�뒗 諛⑸쾿�� �젏怨� �꽑�쓣 �씠�슜�빐�빞 �븳�떎.
 		var triangleVerticeColors = [ 1.0, 0.0, 0.0, 
 		                              1.0, 1.0, 1.0, 
 		                              1.0, 0.0, 0.0,
@@ -203,7 +204,7 @@ quat4.str=function(a){return"["+a[0]+", "+a[1]+", "+a[2]+", "+a[3]+"]"};
 		                              0.0, 0.0, 1.0, 
 		                              1.0, 1.0, 1.0, 
 		                              0.0, 0.0, 1.0, ];
-		// 색을 위한 버퍼 생성
+		// �깋�쓣 �쐞�븳 踰꾪띁 �깮�꽦
 		this.trianglesColorBuffer = this.gl.createBuffer();
 		this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.trianglesColorBuffer);
 		this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(triangleVerticeColors), this.gl.STATIC_DRAW);
@@ -225,30 +226,30 @@ quat4.str=function(a){return"["+a[0]+", "+a[1]+", "+a[2]+", "+a[3]+"]"};
 		0.5 + x_translation, -0.5, 0.5
 		];
 		this.angle += 0.01;
-		// 버퍼를 만들어서 
+		// 踰꾪띁瑜� 留뚮뱾�뼱�꽌 
 		this.trianglesVerticeBuffer = this.gl.createBuffer();
-		// 버퍼에 우리가 만든 정점을 추가한다.
+		// 踰꾪띁�뿉 �슦由ш� 留뚮뱺 �젙�젏�쓣 異붽��븳�떎.
 		this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.trianglesVerticeBuffer);
-		// 그리고 STATIC_DRAW, DYNAMIC_DRAW, STREAM_DRAW의 세가지 방법으로 버퍼에 사용법을 명시해주는데
-		//     (변경을 하지 않음 , 그릴때마다 재설정   , STATIC과 유사하나 자주 사용하지 않음)이라는 특징을 가지고 있다.
+		// 洹몃━怨� STATIC_DRAW, DYNAMIC_DRAW, STREAM_DRAW�쓽 �꽭媛�吏� 諛⑸쾿�쑝濡� 踰꾪띁�뿉 �궗�슜踰뺤쓣 紐낆떆�빐二쇰뒗�뜲
+		//     (蹂�寃쎌쓣 �븯吏� �븡�쓬 , 洹몃┫�븣留덈떎 �옱�꽕�젙   , STATIC怨� �쑀�궗�븯�굹 �옄二� �궗�슜�븯吏� �븡�쓬)�씠�씪�뒗 �듅吏뺤쓣 媛�吏�怨� �엳�떎.
 		this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(triangleVertices), this.gl.DYNAMIC_DRAW);
 	}
 
 	WebGL.prototype.drawScene = function() {
-		// glProgram에서 aVertexPosition의 값을 얻어온다
+		// glProgram�뿉�꽌 aVertexPosition�쓽 媛믪쓣 �뼸�뼱�삩�떎
 		this.vertexPositionAttribute = this.gl.getAttribLocation(this.glProgram, "aVertexPosition");
 		this.gl.enableVertexAttribArray(this.vertexPositionAttribute);
 
 		this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.trianglesVerticeBuffer);
 		this.gl.vertexAttribPointer(this.vertexPositionAttribute, 3, this.gl.FLOAT, false, 0, 0);
 
-		// vertex color를 얻어온다.
+		// vertex color瑜� �뼸�뼱�삩�떎.
 		this.vertexColorAttribute = this.gl.getAttribLocation(this.glProgram, "aVertexColor");
 		this.gl.enableVertexAttribArray(this.vertexColorAttribute);
 		this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.trianglesColorBuffer);
 		this.gl.vertexAttribPointer(this.vertexColorAttribute, 3, this.gl.FLOAT, false, 0, 0);
 
-		//gl에 그린다.
+		//gl�뿉 洹몃┛�떎.
 		this.gl.drawArrays(this.gl.TRIANGLES, 0, 6);
 		//gl.LINES, gl.POINTS, gl.TRIANGLES
 	}
@@ -256,12 +257,12 @@ quat4.str=function(a){return"["+a[0]+", "+a[1]+", "+a[2]+", "+a[3]+"]"};
 	WebGL.prototype.makeShader = function(src, type) {
 
 		var shader = this.gl.createShader(type);
-		// 셰이더에 소스 붙이기
+		// �뀺�씠�뜑�뿉 �냼�뒪 遺숈씠湲�
 		this.gl.shaderSource(shader, src);
-		// 컴파일
+		// 而댄뙆�씪
 		this.gl.compileShader(shader);
 
-		if (!this.gl.getShaderParameter(shader, this.gl.COMPILE_STATUS)) { alert("shader 실패"); }
+		if (!this.gl.getShaderParameter(shader, this.gl.COMPILE_STATUS)) { alert("shader �떎�뙣"); }
 		return shader;
 	}
 
@@ -271,8 +272,8 @@ quat4.str=function(a){return"["+a[0]+", "+a[1]+", "+a[2]+", "+a[3]+"]"};
 		this.setMatrixUniforms();
 		this.drawScene();
 		requestAnimationFrame(this.animation.bind(this), this.canvas);
-		// 여기서 쓰인 bind함수는 나중에 불려지는 animLoop에서 this에 접근할 수 있게 한다. 단 JavaScript 1.8 가 지원되는 브라우져만 가능하다. 
-		// 이를 사용하지 않는다면 다른 방법으로 코드를 만들어야 한다.
+		// �뿬湲곗꽌 �벐�씤 bind�븿�닔�뒗 �굹以묒뿉 遺덈젮吏��뒗 animLoop�뿉�꽌 this�뿉 �젒洹쇳븷 �닔 �엳寃� �븳�떎. �떒 JavaScript 1.8 媛� 吏��썝�릺�뒗 釉뚮씪�슦�졇留� 媛��뒫�븯�떎. 
+		// �씠瑜� �궗�슜�븯吏� �븡�뒗�떎硫� �떎瑜� 諛⑸쾿�쑝濡� 肄붾뱶瑜� 留뚮뱾�뼱�빞 �븳�떎.
 	}
 </script>
 </html>

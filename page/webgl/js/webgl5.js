@@ -118,7 +118,7 @@ WebGL.prototype.loadTexture = function () {
 		self.setupTexture(self.STONE_TEXTURE);
 		self.gl.uniform1i(self.glProgram.samplerUniform, self.STONE_TEXTURE);
 	}
-	this.textureImage[this.STONE_TEXTURE].src = "brick.jpg";
+	this.textureImage[this.STONE_TEXTURE].src = "img/brick.jpg";
 	
 	//
 	this.textureImage[this.WEBGL_LOGO_TEXTURE] = new Image();
@@ -126,7 +126,7 @@ WebGL.prototype.loadTexture = function () {
 		self.setupTexture(self.WEBGL_LOGO_TEXTURE);
 		self.gl.uniform1i(self.glProgram.samplerUniform2, self.WEBGL_LOGO_TEXTURE);
 	}
-	this.textureImage[this.WEBGL_LOGO_TEXTURE].src = "webgl_logo-512px.png";
+	this.textureImage[this.WEBGL_LOGO_TEXTURE].src = "img/webgl_logo-512px.png";
 	
 	this.glProgram.uDoTexturing = this.gl.getUniformLocation(this.glProgram, "uDoTexturing");          		
 	this.gl.uniform1i(this.glProgram.uDoTexturing, 1);
