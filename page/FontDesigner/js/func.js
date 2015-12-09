@@ -38,32 +38,45 @@ listener.prototype.ulUtil = function(){
 listener.prototype.valueChecking = function(){
 	var inputText = $(".eachCssValue");
 	var div = $("#divPanel");
+	var divText = $("#divTextPanel")
 	inputText.change(function(){
 		var findTarget = $(this).prev();
 		if(findTarget.is(".none")){
 			var value = $(this).val();
 			div[findTarget.attr("target")]( ""+findTarget.text() , value + "px")
 		}
-	}).keydown(function(){
+	}).keydown(function(e){
+		switch(e.keyCode){
+		case 38:
+			$(this).val(parseInt($(this).val()) + 1)
+			break;
+		case 40:
+			$(this).val(parseInt($(this).val()) - 1)
+			break;
+		default:
+			break;
+		}
 		var findTarget = $(this).prev();
 		if(findTarget.is(".none")){
 			var value = $(this).val();
-			div[findTarget.attr("target")]( ""+findTarget.text() , value )
+			div[findTarget.attr("target")]( ""+findTarget.text() , value + "px");
 		}		
+
+		
 	}).keyup(function(){
 		var findTarget = $(this).prev();
 		if(findTarget.is(".none")){
 			var value = $(this).val();
-			div[findTarget.attr("target")]( ""+findTarget.text() , value )
+			div[findTarget.attr("target")]( ""+findTarget.text() , value + "px");
 		}		
 	})
 	
 	$("#textareaInput").change(function(){
-		div.text($(this).val());
+		divText.text($(this).val());
 	}).keydown(function(){
-		div.text($(this).val());
+		divText.text($(this).val());
 	}).keyup(function(){
-		div.text($(this).val());
+		divText.text($(this).val());
 	});
 	return this;
 }

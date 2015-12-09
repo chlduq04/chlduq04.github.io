@@ -2,6 +2,12 @@
 	display: none !important;
 }
 
+.divTextPanel {
+	width: calc(100% - 2px);
+	height: calc(100% - 2px);
+	border: 1px dashed #D0D0D0;
+}
+
 .eachCssDiv {
 	width: calc(100% - 10px);
 	height: 25px;
@@ -10,12 +16,12 @@
 
 .eachCssName {
 	width: 140px;
-    height: 20px;
-    display: inline-block;
-    font-size: 13px;
-    text-indent: 10px;
-    float: left;
-    line-height: 20px
+	height: 20px;
+	display: inline-block;
+	font-size: 13px;
+	text-indent: 10px;
+	float: left;
+	line-height: 20px
 }
 
 .eachCssValue {
@@ -27,84 +33,91 @@
 	padding: 3px;
 	display: inline-block;
 	border: 1px solid #A3A3A3;
-	font-size:12px;
-	line-height:22px;
-	float:left;
+	font-size: 12px;
+	line-height: 22px;
+	float: left;
 }
-.divPanel{
-    position: fixed;
-    height: 100px;
-    width: 300px;
-    left: 0;
-    background-color: #F2F2F2;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    margin: auto;
+
+.divPanel {
+	position: fixed;
+	height: 100px;
+	width: 300px;
+	left: 0;
+	background-color: #F2F2F2;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
 }
+
 .eachCssUnit {
-    display: inline-block;
-    padding: 1px;
-    height: 18px;
-    border: 1px solid black;
-    width: 25px;
-    text-align: center;
-    font-size: 12px;
-    line-height: 15px;
-	float:left;
-	margin-left:5px;
-}
-.eachCssLabel{
-	cursor:pointer;
-	float:left;
+	display: inline-block;
+	padding: 1px;
+	height: 18px;
+	border: 1px solid black;
+	width: 25px;
+	text-align: center;
+	font-size: 12px;
+	line-height: 15px;
+	float: left;
+	margin-left: 5px;
 }
 
-.eachCssOption{
-    display: inline-block;
-    padding: 1px;
-    height: 18px;
-    border: 1px solid black;
-    width: 88px;
-    text-align: center;
-    font-size: 12px;
-    line-height: 15px;
-    float: left;
+.eachCssLabel {
+	cursor: pointer;
+	float: left;
 }
 
-.helpLink{
-    text-indent: 10px;
-    float: left;
-    font-size: 12px;
-    line-height: 19px;
-    display: inline-block;
-}
-.opener{
-	cursor:pointer;
-	font-size:15px;
-	font-weight:bold;
-	margin-left:5px;
-}
-.closer{
-	cursor:pointer;
-	font-size:15px;
-	font-weight:bold;
-	margin-left:5px;
-}
-.detailPanel{
-	padding-left:15px;
+.eachCssOption {
+	display: inline-block;
+	padding: 1px;
+	height: 18px;
+	border: 1px solid black;
+	width: 88px;
+	text-align: center;
+	font-size: 12px;
+	line-height: 15px;
+	float: left;
 }
 
-.eachPanel{
+.helpLink {
+	text-indent: 10px;
+	float: left;
+	font-size: 12px;
+	line-height: 19px;
+	display: inline-block;
+}
+
+.opener {
+	cursor: pointer;
+	font-size: 15px;
+	font-weight: bold;
+	margin-left: 5px;
+}
+
+.closer {
+	cursor: pointer;
+	font-size: 15px;
+	font-weight: bold;
+	margin-left: 5px;
+}
+
+.detailPanel {
+	padding-left: 15px;
+}
+
+.eachPanel {
 	border-top: 1px solid #E2E1E1;
 	border-left: 1px solid #F2F2F2;
 }
 
-.textareaInput{
-    width: 265px;
-    height: 140px;
-    margin: 0;
-    margin-left: 8px;
-    margin-top: 10px;
-    padding: 0;
-    display: inline-block;
-    border: 1px solid #A3A3A3;}
+.textareaInput {
+	width: 265px;
+	height: 140px;
+	margin: 0;
+	margin-left: 8px;
+	margin-top: 10px;
+	padding: 0;
+	display: inline-block;
+	border: 1px solid #A3A3A3;
+}
