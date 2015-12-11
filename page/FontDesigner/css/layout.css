@@ -1,3 +1,17 @@
+input[type=text], textarea {
+  -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+  outline: none;
+  border: 1px solid #23610E
+}
+ 
+input[type=text]:focus, textarea:focus {
+  box-shadow: 0 0 5px #2B9209;
+  border: 1px solid #2B9209;
+}
+
 .none {
 	display: none !important;
 }
@@ -57,9 +71,10 @@
 	line-height: 20px
 }
 
+
 .eachCssValue {
 	text-align: right;
-	width: 85px;
+	width: 50px;
 	height: 14px;
 	border: 0px;
 	margin: 0;
@@ -70,7 +85,9 @@
 	line-height: 22px;
 	float: left;
 }
-
+.eachCssValueLarger{
+	width: 85px;
+} 
 .divPanel {
 	position: fixed;
 	height: 100px;
