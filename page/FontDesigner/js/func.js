@@ -39,6 +39,7 @@ listener.prototype.valueChecking = function(){
 	var inputText = $(".eachCssValue");
 	var div = $("#divPanel");
 	var divText = $("#divTextPanel")
+	
 	inputText.change(function(){
 		var findTarget = $(this).prev();
 		if(findTarget.is(".none")){
@@ -79,4 +80,8 @@ listener.prototype.valueChecking = function(){
 		divText.text($(this).val());
 	});
 	return this;
+}
+
+listener.prototype.useChecking = function(){
+	$(".eachCssDiv")
 }

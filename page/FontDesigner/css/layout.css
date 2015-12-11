@@ -2,6 +2,38 @@
 	display: none !important;
 }
 
+.eachUseCheck {
+	width: 10px;
+	height: 10px;
+	margin: 1px;
+}
+
+.detailPanel {
+	border-left: 10px solid #74A6E4;
+	border-bottom: 1px solid #74A6E4;
+}
+
+.eachUse {
+	background-color: #4589FF;
+}
+
+.eachCssUse {
+	float: left;
+	margin: 4px;
+	margin-left: 10px;
+	width: 12px;
+	height: 12px;
+	border: 1px solid black;
+}
+
+.naviPanel {
+	width: 330px;
+	height: 100%;
+	right: 0px;
+	position: absolute;
+	background-color: white;
+}
+
 .divTextPanel {
 	width: calc(100% - 2px);
 	height: calc(100% - 2px);
@@ -12,6 +44,7 @@
 	width: calc(100% - 10px);
 	height: 25px;
 	padding: 2px;
+	padding-top: 5px;
 }
 
 .eachCssName {
@@ -100,10 +133,6 @@
 	font-size: 15px;
 	font-weight: bold;
 	margin-left: 5px;
-}
-
-.detailPanel {
-	padding-left: 15px;
 }
 
 .eachPanel {
