@@ -9,12 +9,12 @@
 }
 
 .detailPanel {
-	border-left: 10px solid #74A6E4;
-	border-bottom: 1px solid #74A6E4;
+    border-left: 10px solid #BBE0AF;
+    border-bottom: 1px solid #F2F2F2;
 }
 
 .eachUse {
-	background-color: #4589FF;
+	background-color: #2B9209;
 }
 
 .eachCssUse {
