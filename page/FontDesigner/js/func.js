@@ -87,7 +87,7 @@ listener.prototype.valueChecking = function(){
 	var div = $("#divPanel");
 	var divText = $("#divTextPanel")
 	var self = this;
-	$(".eachCssValue").change(function(){
+	$(".eachCssValue, .listul").change(function(){
 		var findTarget = $(this).parent(".eachCssDiv");
 		var findUnit = findTarget.find(".eachCssUnit").find(".checked").text();
 		var value = $(this).val();
