@@ -13,14 +13,14 @@
 	<div class="page naviPanel">
 		<div class="eachPanel" >
 			<h1 style="padding:10px;">Div</h1>
-			<div class="eachCssDiv">
-				<div class="eachCssUse"><div class="eachUse eachUseCheck"></div></div>
+			<div class="eachCssDiv" target="width">
+				<div class="eachCssUse"><div class="eachUseCheck"></div></div>
 				<div class="eachCssName"><label class="eachCssLabel">Width</label></div>
-				<div class="none" target="css">width</div>
-				<input type="text" class="eachCssValue" value="300" />
-				<ul class="eachCssUnit">
+				<input type="text" class="eachCssValue" value="300" option="number" />
+				<ul class="listul eachCssUnit">
 					<li>px</li>
 					<li>em</li>
+					<li>%</li>
 					<li>vh</li>
 					<li>vw</li>
 					<li>vmin</li>
@@ -29,14 +29,13 @@
 					<li>ch</li>
 				</ul>
 			</div>
-			<div class="eachCssDiv">
-				<div class="eachCssUse"><div class="eachUse eachUseCheck"></div></div>
+			<div class="eachCssDiv" target="height">
+				<div class="eachCssUse"><div class="eachUseCheck"></div></div>
 				<div class="eachCssName"><label class="eachCssLabel">Height</label></div>
-				<div class="none" target="css">height</div>
-				<input type="text"  class="eachCssValue"value="100" />
-				<ul class="eachCssUnit">
+				<input type="text"  class="eachCssValue"value="100" option="number"/>
+				<ul class="listul eachCssUnit">
 					<li>px</li>
-					<li>em</li>
+					<li>em</li><li>%</li>
 					<li>vh</li>
 					<li>vw</li>
 					<li>vmin</li>
@@ -45,14 +44,13 @@
 					<li>ch</li>
 				</ul>
 			</div>
-			<div class="eachCssDiv">
+			<div class="eachCssDiv" target="padding">
 				<div class="eachCssUse"><div class="eachUseCheck"></div></div>
 				<div class="eachCssName"><label class="eachCssLabel">Padding</label><span class="opener" for="paddingDetail">+</span><span class="closer none" for="paddingDetail">-</span></div>
-				<div class="none" target="css">padding</div>
-				<input type="text"  class="eachCssValue" value="0" />
-				<ul class="eachCssUnit">
+				<input type="text"  class="eachCssValue" value="0" option="number"/>
+				<ul class="listul eachCssUnit">
 					<li>px</li>
-					<li>em</li>
+					<li>em</li><li>%</li>
 					<li>vh</li>
 					<li>vw</li>
 					<li>vmin</li>
@@ -62,14 +60,13 @@
 				</ul>
 			</div>
 			<div id="paddingDetail" class="none detailPanel">
-				<div class="eachCssDiv">
+				<div class="eachCssDiv" target="padding-left">
 					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
 					<div class="eachCssName"><label class="eachCssLabel">- Left</label></div>
-					<div class="none" target="css">padding-left</div>
-					<input type="text"  class="eachCssValue" value="0" />
-					<ul class="eachCssUnit">
+					<input type="text"  class="eachCssValue" value="0" option="number"/>
+					<ul class="listul eachCssUnit">
 						<li>px</li>
-						<li>em</li>
+						<li>em</li><li>%</li>
 						<li>vh</li>
 						<li>vw</li>
 						<li>vmin</li>
@@ -78,14 +75,13 @@
 						<li>ch</li>
 					</ul>
 				</div>
-				<div class="eachCssDiv">
+				<div class="eachCssDiv" target="padding-right">
 					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
 					<div class="eachCssName"><label class="eachCssLabel">- Right</label></div>
-					<div class="none" target="css">padding-right</div>
-					<input type="text"  class="eachCssValue" value="0" />
-					<ul class="eachCssUnit">
+					<input type="text"  class="eachCssValue" value="0" option="number"/>
+					<ul class="listul eachCssUnit">
 						<li>px</li>
-						<li>em</li>
+						<li>em</li><li>%</li>
 						<li>vh</li>
 						<li>vw</li>
 						<li>vmin</li>
@@ -94,14 +90,13 @@
 						<li>ch</li>
 					</ul>
 				</div>
-				<div class="eachCssDiv">
+				<div class="eachCssDiv" target="padding-top">
 					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
 					<div class="eachCssName"><label class="eachCssLabel">- Top</label></div>
-					<div class="none" target="css">padding-top</div>
-					<input type="text"  class="eachCssValue"value="0" />
-					<ul class="eachCssUnit">
+					<input type="text"  class="eachCssValue"value="0" option="number"/>
+					<ul class="listul eachCssUnit">
 						<li>px</li>
-						<li>em</li>
+						<li>em</li><li>%</li>
 						<li>vh</li>
 						<li>vw</li>
 						<li>vmin</li>
@@ -110,14 +105,13 @@
 						<li>ch</li>
 					</ul>
 				</div>
-				<div class="eachCssDiv">
+				<div class="eachCssDiv" target="padding-bottom">
 					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
 					<div class="eachCssName"><label class="eachCssLabel">- Bottom</label></div>
-					<div class="none" target="css">padding-bottom</div>
-					<input type="text"  class="eachCssValue"value="0" />
-					<ul class="eachCssUnit">
+					<input type="text"  class="eachCssValue"value="0" option="number"/>
+					<ul class="listul eachCssUnit">
 						<li>px</li>
-						<li>em</li>
+						<li>em</li><li>%</li>
 						<li>vh</li>
 						<li>vw</li>
 						<li>vmin</li>
@@ -132,9 +126,9 @@
 				<div class="eachCssName"><label class="eachCssLabel">Margin</label><span class="opener" for="marginDetail">+</span><span class="closer none" for="marginDetail">-</span></div>
 				<div class="none" target="css">margin</div>
 				<input type="text"  class="eachCssValue"value="0" />
-				<ul class="eachCssUnit">
+				<ul class="listul eachCssUnit">
 					<li>px</li>
-					<li>em</li>
+					<li>em</li><li>%</li>
 					<li>vh</li>
 					<li>vw</li>
 					<li>vmin</li>
@@ -148,9 +142,9 @@
 					<div class="eachCssName"><label class="eachCssLabel">- Left</label></div>
 					<div class="none" target="css">margin-left</div>
 					<input type="text"  class="eachCssValue"value="0" />
-					<ul class="eachCssUnit">
+					<ul class="listul eachCssUnit">
 						<li>px</li>
-						<li>em</li>
+						<li>em</li><li>%</li>
 						<li>vh</li>
 						<li>vw</li>
 						<li>vmin</li>
@@ -163,9 +157,9 @@
 					<div class="eachCssName"><label class="eachCssLabel">- Right</label></div>
 					<div class="none" target="css">margin-right</div>
 					<input type="text"  class="eachCssValue"value="0" />
-					<ul class="eachCssUnit">
+					<ul class="listul eachCssUnit">
 						<li>px</li>
-						<li>em</li>
+						<li>em</li><li>%</li>
 						<li>vh</li>
 						<li>vw</li>
 						<li>vmin</li>
@@ -178,9 +172,9 @@
 					<div class="eachCssName"><label class="eachCssLabel">- Top</label></div>
 					<div class="none" target="css">padding-top</div>
 					<input type="text"  class="eachCssValue"value="0" />
-					<ul class="eachCssUnit">
+					<ul class="listul eachCssUnit">
 						<li>px</li>
-						<li>em</li>
+						<li>em</li><li>%</li>
 						<li>vh</li>
 						<li>vw</li>
 						<li>vmin</li>
@@ -193,9 +187,9 @@
 					<div class="eachCssName"><label class="eachCssLabel">- bottom</label></div>
 					<div class="none" target="css">padding-bottom</div>
 					<input type="text"  class="eachCssValue"value="0" />
-					<ul class="eachCssUnit">
+					<ul class="listul eachCssUnit">
 						<li>px</li>
-						<li>em</li>
+						<li>em</li><li>%</li>
 						<li>vh</li>
 						<li>vw</li>
 						<li>vmin</li>
@@ -206,6 +200,278 @@
 				</div>
 			</div>
 			-->
+			<div class="eachCssDiv" target="border">
+				<div class="eachCssUse"><div class="eachUseCheck"></div></div>
+				<div class="eachCssName"><label class="eachCssLabel" for="">border</label><span class="opener" for="borderDetail">+</span><span class="closer none" for="borderDetail">-</span></div>
+				<input type="text"   class="eachCssValue eachCssValueLarger" value="" placeholder="1px solid black"/>
+			</div>
+			<div id="borderDetail" class="none detailPanel">
+				<div class="eachCssDiv" target="border-width">
+					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
+					<div class="eachCssName"><label class="eachCssLabel" for="">- width</label></div>
+					<input type="text"   class="eachCssValue" value="0" option="number"/>
+				</div>
+			
+				<div class="eachCssDiv" target="border-collapse">
+					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
+					<div class="eachCssName"><label class="eachCssLabel" for="">- collapse</label></div>
+					<ul class="listul eachCssOption">
+						<li>none</li>
+						<li>collapse</li>
+						<li>separate</li>
+						<li>initial</li>
+						<li>inherit</li>
+					</ul>
+				</div>
+				<div class="eachCssDiv" target="border-color">
+					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
+					<div class="eachCssName"><label class="eachCssLabel" for="">- color</label></div>
+					<input type="text"   class="eachCssValue" value="300" />
+				</div>
+				<div class="eachCssDiv" target="border-radius">
+					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
+					<div class="eachCssName"><label class="eachCssLabel" for="">- radius</label></div>
+					<input type="text"   class="eachCssValue" value="300" />
+					<ul  class="listul eachCssUnit">
+						<li>px</li>
+					</ul>
+				</div>
+				<div class="eachCssDiv"  target="border-spacing">
+					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
+					<div class="eachCssName"><label class="eachCssLabel" for="">- spacing</label></div>
+					<input type="text"   class="eachCssValue" value="300" />
+					<ul  class="listul eachCssUnit">
+						<li>px</li>
+					</ul>
+				</div>
+				<div class="eachCssDiv"  target="border-style">
+					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
+					<div class="eachCssName"><label class="eachCssLabel" for="">- style</label></div>
+					<ul class="listul eachCssOption">
+						<li>none</li>
+						<li>dashed</li>
+						<li>dotted</li>
+						<li>double</li>
+						<li>groove</li>
+						<li>hidden</li>
+						<li>inherit</li>
+						<li>initial</li>
+						<li>inset</li>
+						<li>outset</li>
+						<li>ridge</li>
+						<li>solid</li>
+					</ul>
+				</div>
+			</div>
+			
+			<div class="eachCssDiv"  target="border-left">
+				<div class="eachCssUse"><div class="eachUseCheck"></div></div>
+				<div class="eachCssName"><label class="eachCssLabel" for="">border-left</label><span class="opener" for="borderLeftDetail">+</span><span class="closer none" for="borderLeftDetail">-</span></div>
+				<input type="text"   class="eachCssValue eachCssValueLarger" value="" placeholder="1px solid black" />
+			</div>
+			<div id="borderLeftDetail" class="none detailPanel">
+				<div class="eachCssDiv" target="border-left-width">
+					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
+					<div class="eachCssName"><label class="eachCssLabel" for="">- width</label></div>
+					<input type="text"   class="eachCssValue" value="0" option="number"/>
+				</div>
+				<div class="eachCssDiv"  target="border-left-color">
+					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
+					<div class="eachCssName"><label class="eachCssLabel" for="">- color</label></div>
+					<input type="text"   class="eachCssValue" value="300" />
+				</div>
+				<div class="eachCssDiv"  target="border-left-radius">
+					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
+					<div class="eachCssName"><label class="eachCssLabel" for="">- radius</label></div>
+					<input type="text"   class="eachCssValue" value="300" />
+					<ul  class="listul eachCssUnit">
+						<li>px</li>
+					</ul>
+				</div>
+				<div class="eachCssDiv"  target="border-left-spacing">
+					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
+					<div class="eachCssName"><label class="eachCssLabel" for="">- spacing</label></div>
+					<input type="text"   class="eachCssValue" value="300" />
+					<ul  class="listul eachCssUnit">
+						<li>px</li>
+					</ul>
+				</div>
+				<div class="eachCssDiv"  target="border-left-style">
+					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
+					<div class="eachCssName"><label class="eachCssLabel" for="">- style</label></div>
+					<ul class="listul eachCssOption">
+						<li>none</li>
+						<li>dashed</li>
+						<li>dotted</li>
+						<li>double</li>
+						<li>groove</li>
+						<li>hidden</li>
+						<li>inherit</li>
+						<li>initial</li>
+						<li>inset</li>
+						<li>outset</li>
+						<li>ridge</li>
+						<li>solid</li>
+					</ul>
+				</div>
+			</div>
+			
+			<div class="eachCssDiv" target="border-right">
+				<div class="eachCssUse"><div class="eachUseCheck"></div></div>
+				<div class="eachCssName"><label class="eachCssLabel" for="">border-right</label><span class="opener" for="borderRightDetail">+</span><span class="closer none" for="borderRightDetail">-</span></div>
+				<input type="text"   class="eachCssValue eachCssValueLarger" value="" placeholder="1px solid black"/>
+			</div>
+			<div id="borderRightDetail" class="none detailPanel">
+				<div class="eachCssDiv" target="border-right-width">
+					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
+					<div class="eachCssName"><label class="eachCssLabel" for="">- width</label></div>
+					<input type="text"   class="eachCssValue" value="0" option="number"/>
+				</div>
+
+				<div class="eachCssDiv" target="border-right-color">
+					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
+					<div class="eachCssName"><label class="eachCssLabel" for="">- color</label></div>
+					<input type="text"   class="eachCssValue" value="300" />
+				</div>
+				<div class="eachCssDiv" target="border-right-radius">
+					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
+					<div class="eachCssName"><label class="eachCssLabel" for="">- radius</label></div>
+					<input type="text"   class="eachCssValue" value="300" />
+					<ul  class="listul eachCssUnit">
+						<li>px</li>
+					</ul>
+				</div>
+				<div class="eachCssDiv" target="border-right-spacing">
+					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
+					<div class="eachCssName"><label class="eachCssLabel" for="">- spacing</label></div>
+					<input type="text"   class="eachCssValue" value="300" />
+					<ul  class="listul eachCssUnit">
+						<li>px</li>
+					</ul>
+				</div>
+				<div class="eachCssDiv" target="border-right-style">
+					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
+					<div class="eachCssName"><label class="eachCssLabel" for="">- style</label></div>
+					<ul class="listul eachCssOption">
+						<li>none</li>
+						<li>dashed</li>
+						<li>dotted</li>
+						<li>double</li>
+						<li>groove</li>
+						<li>hidden</li>
+						<li>inherit</li>
+						<li>initial</li>
+						<li>inset</li>
+						<li>outset</li>
+						<li>ridge</li>
+						<li>solid</li>
+					</ul>
+				</div>
+			</div>
+			
+			<div class="eachCssDiv" target="border-top">
+				<div class="eachCssUse"><div class="eachUseCheck"></div></div>
+				<div class="eachCssName"><label class="eachCssLabel" for="">border-top</label><span class="opener" for="borderTopDetail">+</span><span class="closer none" for="borderTopDetail">-</span></div>
+				<input type="text"   class="eachCssValue eachCssValueLarger" value="" placeholder="1px solid black"/>
+			</div>
+			<div id="borderTopDetail" class="none detailPanel">
+				<div class="eachCssDiv" target="border-top-width">
+					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
+					<div class="eachCssName"><label class="eachCssLabel" for="">- width</label></div>
+					<input type="text"   class="eachCssValue" value="0" option="number"/>
+				</div>
+				<div class="eachCssDiv" target="border-top-color">
+					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
+					<div class="eachCssName"><label class="eachCssLabel" for="">- color</label></div>
+					<input type="text"   class="eachCssValue" value="300" />
+				</div>
+				<div class="eachCssDiv" target="border-top-radius">
+					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
+					<div class="eachCssName"><label class="eachCssLabel" for="">- radius</label></div>
+					<input type="text"   class="eachCssValue" value="300" />
+					<ul  class="listul eachCssUnit">
+						<li>px</li>
+					</ul>
+				</div>
+				<div class="eachCssDiv" target="border-top-spacing">
+					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
+					<div class="eachCssName"><label class="eachCssLabel" for="">- spacing</label></div>
+					<input type="text"   class="eachCssValue" value="300" />
+					<ul  class="listul eachCssUnit">
+						<li>px</li>
+					</ul>
+				</div>
+				<div class="eachCssDiv" target="border-top-style">
+					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
+					<div class="eachCssName"><label class="eachCssLabel" for="">- style</label></div>
+					<ul class="listul eachCssOption">
+						<li>none</li>
+						<li>dashed</li>
+						<li>dotted</li>
+						<li>double</li>
+						<li>groove</li>
+						<li>hidden</li>
+						<li>inherit</li>
+						<li>initial</li>
+						<li>inset</li>
+						<li>outset</li>
+						<li>ridge</li>
+						<li>solid</li>
+					</ul>
+				</div>
+			</div>
+			
+			<div class="eachCssDiv" target="border-bottom">
+				<div class="eachCssUse"><div class="eachUseCheck"></div></div>
+				<div class="eachCssName"><label class="eachCssLabel" for="">border-bottom</label><span class="opener" for="borderBottomDetail">+</span><span class="closer none" for="borderBottomDetail">-</span></div>
+				<input type="text"   class="eachCssValue eachCssValueLarger" value="" placeholder="1px solid black"/>
+			</div>
+			<div id="borderBottomDetail" class="none detailPanel">
+				<div class="eachCssDiv" target="border-bottom-width">
+					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
+					<div class="eachCssName"><label class="eachCssLabel" for="">- width</label></div>
+					<input type="text"   class="eachCssValue" value="0" option="number"/>
+				</div>
+				<div class="eachCssDiv" target="border-bottom-color">
+					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
+					<div class="eachCssName"><label class="eachCssLabel" for="">- color</label></div>
+					<input type="text"   class="eachCssValue" value="300" />
+				</div>
+				<div class="eachCssDiv" target="border-bottom-radius">
+					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
+					<div class="eachCssName"><label class="eachCssLabel" for="">- radius</label></div>
+					<input type="text"   class="eachCssValue" value="300" />
+					<ul  class="listul eachCssUnit">
+						<li>px</li>
+					</ul>
+				</div>
+				<div class="eachCssDiv" target="border-bottom-spacing">
+					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
+					<div class="eachCssName"><label class="eachCssLabel" for="">- spacing</label></div>
+					<input type="text"   class="eachCssValue" value="300" />
+					<ul  class="listul eachCssUnit">
+						<li>px</li>
+					</ul>
+				</div>
+				<div class="eachCssDiv" target="border-bottom-style">
+					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
+					<div class="eachCssName"><label class="eachCssLabel" for="">- style</label></div>
+					<ul class="listul eachCssOption">
+						<li>none</li>
+						<li>dashed</li>
+						<li>dotted</li>
+						<li>double</li>
+						<li>groove</li>
+						<li>hidden</li>
+						<li>inherit</li>
+						<li>initial</li>
+						<li>inset</li>
+						<li>outset</li>
+						<li>ridge</li>
+						<li>solid</li>
+					</ul>
+				</div>
+			</div>
 		</div>
 		<div class="eachPanel" >
 			<h1 style="padding:10px;">Font</h1>
@@ -213,230 +479,7 @@
 				<label style="width:30%;height:20px;display:inline-block;font-size:14px;text-indent: 10px;">Text</label>
 				<textarea class="textareaInput" id="textareaInput"></textarea>
 			</div>
-			<div class="eachCssDiv">
-				<div class="eachCssUse"><div class="eachUseCheck"></div></div>
-				<div class="eachCssName"><label class="eachCssLabel" for="">border</label><span class="opener" for="borderDetail">+</span><span class="closer none" for="borderDetail">-</span></div>
-				<input type="text"   class="eachCssValue eachCssValueLarger" value="" placeholder="1px solid black"/>
-			</div>
-			<div id="borderDetail" class="none detailPanel">
-				<div class="eachCssDiv">
-					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
-					<div class="eachCssName"><label class="eachCssLabel" for="">- collapse</label></div>
-					<ul class="selectUl eachCssOption">
-						<li>none</li>
-						<li>collapse</li>
-						<li>separate</li>
-						<li>initial</li>
-						<li>inherit</li>
-					</ul>
-				</div>
-				<div class="eachCssDiv">
-					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
-					<div class="eachCssName"><label class="eachCssLabel" for="">- color</label></div>
-					<input type="text"   class="eachCssValue" value="300" />
-				</div>
-				<div class="eachCssDiv">
-					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
-					<div class="eachCssName"><label class="eachCssLabel" for="">- radius</label></div>
-					<input type="text"   class="eachCssValue" value="300" />
-					<ul  class="eachCssUnit">
-						<li>px</li>
-					</ul>
-				</div>
-				<div class="eachCssDiv">
-					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
-					<div class="eachCssName"><label class="eachCssLabel" for="">- spacing</label></div>
-					<input type="text"   class="eachCssValue" value="300" />
-					<ul  class="eachCssUnit">
-						<li>px</li>
-					</ul>
-				</div>
-				<div class="eachCssDiv">
-					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
-					<div class="eachCssName"><label class="eachCssLabel" for="">- style</label></div>
-					<input type="text"   class="eachCssValue" value="300" />
-				</div>
-			</div>
 			
-			<div class="eachCssDiv">
-				<div class="eachCssUse"><div class="eachUseCheck"></div></div>
-				<div class="eachCssName"><label class="eachCssLabel" for="">border-left</label><span class="opener" for="borderLeftDetail">+</span><span class="closer none" for="borderLeftDetail">-</span></div>
-				<input type="text"   class="eachCssValue eachCssValueLarger" value="" placeholder="1px solid black" />
-			</div>
-			<div id="borderLeftDetail" class="none detailPanel">
-				<div class="eachCssDiv">
-					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
-					<div class="eachCssName"><label class="eachCssLabel" for="">- collapse</label></div>
-					<ul class="selectUl eachCssOption">
-						<li>none</li>
-						<li>collapse</li>
-						<li>separate</li>
-						<li>initial</li>
-						<li>inherit</li>
-					</ul>
-				</div>
-				<div class="eachCssDiv">
-					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
-					<div class="eachCssName"><label class="eachCssLabel" for="">- color</label></div>
-					<input type="text"   class="eachCssValue" value="300" />
-				</div>
-				<div class="eachCssDiv">
-					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
-					<div class="eachCssName"><label class="eachCssLabel" for="">- radius</label></div>
-					<input type="text"   class="eachCssValue" value="300" />
-					<ul  class="eachCssUnit">
-						<li>px</li>
-					</ul>
-				</div>
-				<div class="eachCssDiv">
-					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
-					<div class="eachCssName"><label class="eachCssLabel" for="">- spacing</label></div>
-					<input type="text"   class="eachCssValue" value="300" />
-					<ul  class="eachCssUnit">
-						<li>px</li>
-					</ul>
-				</div>
-				<div class="eachCssDiv">
-					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
-					<div class="eachCssName"><label class="eachCssLabel" for="">- style</label></div>
-					<input type="text"   class="eachCssValue" value="300" />
-				</div>
-			</div>
-			
-			<div class="eachCssDiv">
-				<div class="eachCssUse"><div class="eachUseCheck"></div></div>
-				<div class="eachCssName"><label class="eachCssLabel" for="">border-right</label><span class="opener" for="borderRightDetail">+</span><span class="closer none" for="borderRightDetail">-</span></div>
-				<input type="text"   class="eachCssValue eachCssValueLarger" value="" placeholder="1px solid black"/>
-			</div>
-			<div id="borderRightDetail" class="none detailPanel">
-				<div class="eachCssDiv">
-					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
-					<div class="eachCssName"><label class="eachCssLabel" for="">- collapse</label></div>
-					<ul class="selectUl eachCssOption">
-						<li>none</li>
-						<li>collapse</li>
-						<li>separate</li>
-						<li>initial</li>
-						<li>inherit</li>
-					</ul>
-				</div>
-				<div class="eachCssDiv">
-					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
-					<div class="eachCssName"><label class="eachCssLabel" for="">- color</label></div>
-					<input type="text"   class="eachCssValue" value="300" />
-				</div>
-				<div class="eachCssDiv">
-					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
-					<div class="eachCssName"><label class="eachCssLabel" for="">- radius</label></div>
-					<input type="text"   class="eachCssValue" value="300" />
-					<ul  class="eachCssUnit">
-						<li>px</li>
-					</ul>
-				</div>
-				<div class="eachCssDiv">
-					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
-					<div class="eachCssName"><label class="eachCssLabel" for="">- spacing</label></div>
-					<input type="text"   class="eachCssValue" value="300" />
-					<ul  class="eachCssUnit">
-						<li>px</li>
-					</ul>
-				</div>
-				<div class="eachCssDiv">
-					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
-					<div class="eachCssName"><label class="eachCssLabel" for="">- style</label></div>
-					<input type="text"   class="eachCssValue" value="300" />
-				</div>
-			</div>
-			
-			<div class="eachCssDiv">
-				<div class="eachCssUse"><div class="eachUseCheck"></div></div>
-				<div class="eachCssName"><label class="eachCssLabel" for="">border-top</label><span class="opener" for="borderTopDetail">+</span><span class="closer none" for="borderTopDetail">-</span></div>
-				<input type="text"   class="eachCssValue eachCssValueLarger" value="" placeholder="1px solid black"/>
-			</div>
-			<div id="borderTopDetail" class="none detailPanel">
-				<div class="eachCssDiv">
-					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
-					<div class="eachCssName"><label class="eachCssLabel" for="">- collapse</label></div>
-					<ul class="selectUl eachCssOption">
-						<li>none</li>
-						<li>collapse</li>
-						<li>separate</li>
-						<li>initial</li>
-						<li>inherit</li>
-					</ul>
-				</div>
-				<div class="eachCssDiv">
-					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
-					<div class="eachCssName"><label class="eachCssLabel" for="">- color</label></div>
-					<input type="text"   class="eachCssValue" value="300" />
-				</div>
-				<div class="eachCssDiv">
-					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
-					<div class="eachCssName"><label class="eachCssLabel" for="">- radius</label></div>
-					<input type="text"   class="eachCssValue" value="300" />
-					<ul  class="eachCssUnit">
-						<li>px</li>
-					</ul>
-				</div>
-				<div class="eachCssDiv">
-					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
-					<div class="eachCssName"><label class="eachCssLabel" for="">- spacing</label></div>
-					<input type="text"   class="eachCssValue" value="300" />
-					<ul  class="eachCssUnit">
-						<li>px</li>
-					</ul>
-				</div>
-				<div class="eachCssDiv">
-					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
-					<div class="eachCssName"><label class="eachCssLabel" for="">- style</label></div>
-					<input type="text"   class="eachCssValue" value="300" />
-				</div>
-			</div>
-			
-			<div class="eachCssDiv">
-				<div class="eachCssUse"><div class="eachUseCheck"></div></div>
-				<div class="eachCssName"><label class="eachCssLabel" for="">border-bottom</label><span class="opener" for="borderBottomDetail">+</span><span class="closer none" for="borderBottomDetail">-</span></div>
-				<input type="text"   class="eachCssValue eachCssValueLarger" value="" placeholder="1px solid black"/>
-			</div>
-			<div id="borderBottomDetail" class="none detailPanel">
-				<div class="eachCssDiv">
-					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
-					<div class="eachCssName"><label class="eachCssLabel" for="">- collapse</label></div>
-					<ul class="selectUl eachCssOption">
-						<li>none</li>
-						<li>collapse</li>
-						<li>separate</li>
-						<li>initial</li>
-						<li>inherit</li>
-					</ul>
-				</div>
-				<div class="eachCssDiv">
-					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
-					<div class="eachCssName"><label class="eachCssLabel" for="">- color</label></div>
-					<input type="text"   class="eachCssValue" value="300" />
-				</div>
-				<div class="eachCssDiv">
-					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
-					<div class="eachCssName"><label class="eachCssLabel" for="">- radius</label></div>
-					<input type="text"   class="eachCssValue" value="300" />
-					<ul  class="eachCssUnit">
-						<li>px</li>
-					</ul>
-				</div>
-				<div class="eachCssDiv">
-					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
-					<div class="eachCssName"><label class="eachCssLabel" for="">- spacing</label></div>
-					<input type="text"   class="eachCssValue" value="300" />
-					<ul  class="eachCssUnit">
-						<li>px</li>
-					</ul>
-				</div>
-				<div class="eachCssDiv">
-					<div class="eachCssUse"><div class="eachUseCheck"></div></div>
-					<div class="eachCssName"><label class="eachCssLabel" for="">- style</label></div>
-					<input type="text"   class="eachCssValue" value="300" />
-				</div>
-			</div>
 		</div>
 		<div class="eachPanel" style="box-shadow: 3px 3px 5px #888888;">
 			<h2 style="padding:10px;">Link</h2>

@@ -1,10 +1,41 @@
 $(document).ready(function(){
-	var panel = new listener();
+	panel = new listener();
 })
 
-function listener(){
-	this.opener().ulUtil().valueChecking();
+function module(option){
+	this.targetDiv = $("#divPanel");
+	this.use = {};
+	this.use = option
+
 }
+module.prototype.changeValue = function(attr, value){
+	if(this.use[attr]){this.targetDiv.css(attr, value)}
+}
+
+module.prototype.isUse = function(target, bool){
+	if(arguments.length == 1){
+		return this.use[target];
+	}
+	this.use[target] = bool;
+}
+
+function listener(){
+	this.init();
+	this.opener();
+	this.ulUtil();
+	this.valueChecking();
+	this.useChecking();
+}
+
+listener.prototype.init = function(){
+	var initial = {width:true, height:true};
+	this.vc = new module(initial);
+	for(var i in initial){
+		$(".eachCssDiv[target='"+i+"']").find(".eachUseCheck").addClass("eachUse")
+	}
+	return this;
+}
+
 listener.prototype.opener = function(){
 	$(".opener").click(function(){
 		var target = $(this).attr("for");
@@ -18,35 +49,51 @@ listener.prototype.opener = function(){
 		$(this).addClass("none");
 		$(this).prev().removeClass("none")
 	})
-	
+
 	return this;
 }
 
 listener.prototype.ulUtil = function(){
-	var ul = $(".selectUl, .eachCssUnit")
+	var ul = $(".listul")
+	var self = this;
 	for(var i=0, length = ul.length ; i < length ; i++){
 		(function(i){
 			var target = $(ul[i]);
+			var click = false;
 			target.find("li").addClass("none")
-			target.find("li").first().removeClass("none")
+			target.find("li").first().removeClass("none").addClass("checked")
+			target.children().click(function(){
+				if(click){
+					target.children().addClass("none").removeClass("checked");
+					$(this).removeClass("none").addClass("checked");
+					target.removeClass("indexHigh")					
+
+					var findTarget = target.parent(".eachCssDiv");
+					var findUnit = $(this).text();
+					var value = findTarget.find(".eachCssValue").val();
+					self.vc.changeValue( findTarget.attr("target") , value + findUnit)
+				}else{
+					target.children().removeClass("none");
+					target.addClass("indexHigh")					
+				}
+				click = !click;
+			})
 		})(i)
 	}
 	return this;
 }
 
-
 listener.prototype.valueChecking = function(){
-	var inputText = $(".eachCssValue");
 	var div = $("#divPanel");
 	var divText = $("#divTextPanel")
-	
-	inputText.change(function(){
-		var findTarget = $(this).prev();
-		if(findTarget.is(".none")){
-			var value = $(this).val();
-			div[findTarget.attr("target")]( ""+findTarget.text() , value + "px")
-		}
-	}).keydown(function(e){
+	var self = this;
+	$(".eachCssValue").change(function(){
+		var findTarget = $(this).parent(".eachCssDiv");
+		var findUnit = findTarget.find(".eachCssUnit").find(".checked").text();
+		var value = $(this).val();
+		self.vc.changeValue( findTarget.attr("target") , value + findUnit)
+	})
+	$(".eachCssValue[option='number']").keydown(function(e){
 		switch(e.keyCode){
 		case 38:
 			$(this).val(parseInt($(this).val()) + 1)
@@ -57,21 +104,19 @@ listener.prototype.valueChecking = function(){
 		default:
 			break;
 		}
-		var findTarget = $(this).prev();
-		if(findTarget.is(".none")){
-			var value = $(this).val();
-			div[findTarget.attr("target")]( ""+findTarget.text() , value + "px");
-		}		
 
-		
+		var findTarget = $(this).parent(".eachCssDiv");
+		var findUnit = findTarget.find(".eachCssUnit").find(".checked").text();
+		var value = $(this).val();
+		self.vc.changeValue( findTarget.attr("target") , value + findUnit)
+
 	}).keyup(function(){
-		var findTarget = $(this).prev();
-		if(findTarget.is(".none")){
-			var value = $(this).val();
-			div[findTarget.attr("target")]( ""+findTarget.text() , value + "px");
-		}		
+		var findTarget = $(this).parent(".eachCssDiv");
+		var findUnit = findTarget.find(".eachCssUnit").find(".checked").text();
+		var value = $(this).val();
+		self.vc.changeValue( findTarget.attr("target") , value + findUnit)
 	})
-	
+
 	$("#textareaInput").change(function(){
 		divText.text($(this).val());
 	}).keydown(function(){
@@ -83,5 +128,17 @@ listener.prototype.valueChecking = function(){
 }
 
 listener.prototype.useChecking = function(){
-	$(".eachCssDiv")
+	var self = this;
+	$(".eachCssUse").click(function(){
+		var css = $(this).parent(".eachCssDiv").attr("target");
+		var target = $(this).find(".eachUseCheck");
+		if(self.vc.isUse(css)){
+			self.vc.isUse(css, false);
+			target.removeClass("eachUse")
+		}else{
+			self.vc.isUse(css, true);
+			target.addClass("eachUse")
+		}
+	})
 }
+
