@@ -70,7 +70,7 @@ listener.prototype.ulUtil = function(){
 
 					var findTarget = target.parent(".eachCssDiv");
 					var findUnit = $(this).text();
-					var value = findTarget.find(".eachCssValue").val();
+					var value = findTarget.find(".eachCssValue").val() || "";
 					self.vc.changeValue( findTarget.attr("target") , value + findUnit)
 				}else{
 					target.children().removeClass("none");
@@ -90,7 +90,7 @@ listener.prototype.valueChecking = function(){
 	$(".eachCssValue, .listul").change(function(){
 		var findTarget = $(this).parent(".eachCssDiv");
 		var findUnit = findTarget.find(".eachCssUnit").find(".checked").text();
-		var value = $(this).val();
+		var value = $(this).val() || 0;
 		self.vc.changeValue( findTarget.attr("target") , value + findUnit)
 	})
 	$(".eachCssValue[option='number']").keydown(function(e){
@@ -107,13 +107,13 @@ listener.prototype.valueChecking = function(){
 
 		var findTarget = $(this).parent(".eachCssDiv");
 		var findUnit = findTarget.find(".eachCssUnit").find(".checked").text();
-		var value = $(this).val();
+		var value = $(this).val() || 0;
 		self.vc.changeValue( findTarget.attr("target") , value + findUnit)
 
 	}).keyup(function(){
 		var findTarget = $(this).parent(".eachCssDiv");
 		var findUnit = findTarget.find(".eachCssUnit").find(".checked").text();
-		var value = $(this).val();
+		var value = $(this).val() || 0;
 		self.vc.changeValue( findTarget.attr("target") , value + findUnit)
 	})
 
