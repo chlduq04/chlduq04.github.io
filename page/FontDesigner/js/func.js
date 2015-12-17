@@ -20,18 +20,18 @@ module.prototype.isUse = function(target, bool){
 }
 
 function listener(){
-	this.init();
 	this.opener();
 	this.ulUtil();
 	this.valueChecking();
 	this.useChecking();
+	this.init();
 }
 
 listener.prototype.init = function(){
-	var initial = {width:true, height:true};
+	var initial = {width:false, height:false};
 	this.vc = new module(initial);
 	for(var i in initial){
-		$(".eachCssDiv[target='"+i+"']").find(".eachUseCheck").addClass("eachUse")
+		$(".eachCssDiv[target='"+i+"']").find(".eachCssUse").click();
 	}
 	return this;
 }
@@ -131,13 +131,21 @@ listener.prototype.useChecking = function(){
 	var self = this;
 	$(".eachCssUse").click(function(){
 		var css = $(this).parent(".eachCssDiv").attr("target");
+		var input = $(this).parent(".eachCssDiv").find("input").val();
+		var unit = $(this).parent(".eachCssDiv").find(".eachCssUnit").find(".checked").text();
+		if(!input){
+			input = $(this).parent(".eachCssDiv").find(".eachCssOption").find(".checked").text();
+			unit = "";
+		}
 		var target = $(this).find(".eachUseCheck");
 		if(self.vc.isUse(css)){
 			self.vc.isUse(css, false);
-			target.removeClass("eachUse")
+			target.removeClass("eachUse");
+			 $("#divPanel").css(css,"");
 		}else{
 			self.vc.isUse(css, true);
-			target.addClass("eachUse")
+			target.addClass("eachUse");
+			 $("#divPanel").css(css,input+unit);
 		}
 	})
 }

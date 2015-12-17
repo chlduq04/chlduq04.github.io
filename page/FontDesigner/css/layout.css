@@ -114,8 +114,6 @@ input[type=text]:focus, textarea:focus {
 } 
 .divPanel {
 	position: fixed;
-	height: 100px;
-	width: 300px;
 	left: 0;
 	background-color: #F2F2F2;
 	right: 0;
@@ -136,7 +134,7 @@ input[type=text]:focus, textarea:focus {
 }
 
 .eachCssOption {
-	width: 88px;
+	width: 110px;
 	line-height: 15px;
 	float: left;
 	display: inline-block;
