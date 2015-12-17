@@ -5,6 +5,13 @@ body {
 	overflow-y: scroll;
 }
 
+.content {
+	width: 100%;
+	height: 100%;
+	float: left;
+	background-color: #F2F2F2;
+}
+
 input[type=text], textarea {
 	-webkit-transition: all 0.30s ease-in-out;
 	-moz-transition: all 0.30s ease-in-out;
@@ -77,13 +84,12 @@ input[type=text]:focus, textarea:focus {
 	height: 100%;
 	right: 0px;
 	position: absolute;
-	background-color: white;
+	background-color: #F2F2F2;
 }
 
 .divTextPanel {
 	width: calc(100% - 2px);
 	height: calc(100% - 2px);
-	border: 1px dashed #D0D0D0;
 }
 
 .eachCssDiv {
@@ -124,7 +130,7 @@ input[type=text]:focus, textarea:focus {
 .divPanel {
 	position: fixed;
 	left: 0;
-	background-color: #F2F2F2;
+	background-color: white;
 	right: 0;
 	top: 0;
 	bottom: 0;
@@ -174,6 +180,7 @@ input[type=text]:focus, textarea:focus {
 .eachPanel {
 	border-top: 1px solid #E2E1E1;
 	border-left: 1px solid #F2F2F2;
+	background-color:white;
 }
 
 .textareaInput {
