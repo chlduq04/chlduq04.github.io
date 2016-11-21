@@ -1,0 +1,21 @@
+#loading{
+	display:none;
+	background: url('../IMAGE/loading-background.png');
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: absolute;
+	width:100%;
+	height:100%;
+	z-index : 5000;
+}
+#loading-background{
+	display:none;
+	background: url('../IMAGE/blue.jpg');
+	position: absolute;
+	background-repeat: no-repeat;
+	background-size: cover;
+	opacity: 1;
+	width: 100%;
+	height: 100%;
+	z-index: 4999;
+}
