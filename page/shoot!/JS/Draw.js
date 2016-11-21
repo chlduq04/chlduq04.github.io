@@ -193,7 +193,7 @@ DrawWebGL.prototype = {
 			}
 			
 			
-			if(this.goalCount > 50){
+			if(this.goalCount > 20){
 				this.goalCount = 0;
 				this.goal = parseFloat((Math.random()*0.5 - 0.25).toFixed(2));
 			}
