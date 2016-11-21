@@ -36,6 +36,10 @@ function DrawWebGL( opt ){
 	this.house ;
 	this.funiture = {};
 	this.elsething = {};
+	this.rocks = [];
+	this.fire = [];
+	this.goal = parseFloat((Math.random()*0.5 - 0.25).toFixed(2));
+	this.goalCount = 0;
 	
 	/* ----- Basic Setting ----- */
 	
@@ -53,7 +57,7 @@ function DrawWebGL( opt ){
 			MOVE_DOWN : "S",
 			VIEW_SWITCH : "Q",
 			MOVE_DOWN : "S",
-			OPACITY_SWITCH : "Z",
+//			OPACITY_SWITCH : "Z",
 			OPACITY_MODE : 1,
 			VIEW_MODE : 1,
 			
@@ -64,7 +68,7 @@ function DrawWebGL( opt ){
 			PLAYER_POSY : 200,
 			PLAYER_POSZ : 0 ,
 			
-			OPACITY : 0.3,
+			OPACITY : 1,
 			OPACITY_LENGTH : 1000
 	};
 	$.extend(this.defaults, opt);
@@ -87,8 +91,10 @@ DrawWebGL.prototype = {
 			this.initControl();
 			this.initState();
 			this.initElse();
-			this.loadPlayer( this.defaults.PLAYER_POSX, this.defaults.PLAYER_POSY, this.defaults.PLAYER_POSZ );
-			this.loadHouse( "./OBJ/house1.obj", "", this.defaults.HOUSE_POSX, this.defaults.HOUSE_POSY, this.defaults.HOUSE_POSZ, 2, 2, 2 ,0, 0, 0 );
+			this.loadPlayer( this.defaults.HOUSE_POSX, this.defaults.HOUSE_POSY, this.defaults.HOUSE_POSZ );
+			this.loadRock(10,210,10)
+			this.loadHouse( "./OBJ/rocket.obj", "", this.defaults.HOUSE_POSX, this.defaults.HOUSE_POSY, this.defaults.HOUSE_POSZ, 10, 10, 10 ,0, 0, 0 );
+			this.loadFire(-40,-50, 8);
 			this.animationScene();
 		},
 		
@@ -96,7 +102,7 @@ DrawWebGL.prototype = {
 		
 		initRender : function(){
 			if ( Detector.webgl ){
-				this.renderer = new THREE.WebGLRenderer( {antialias:true} );
+				this.renderer = new THREE.WebGLRenderer( {antialias:true, logarithmicDepthBuffer: true} );
 			}else{
 				this.renderer = new THREE.CanvasRenderer(); 
 			}
@@ -113,7 +119,7 @@ DrawWebGL.prototype = {
 		
 		initLight : function(){
 			this.pointLight = new THREE.PointLight(0xffffff);
-			this.pointLight.position.set(0,150,100);
+			this.pointLight.position.set(100,150,100);
 			this.scene.add(this.pointLight);
 		},
 		
@@ -168,57 +174,42 @@ DrawWebGL.prototype = {
 		/** --------- Update Scene --------- */
 		
 		updateScene : function(){
-			
+			this.goalCount++;
 			/* ----- Player View, Sky View Move ----- */
 			var delta = this.clock.getDelta();
-			var rotateAngle = Math.PI / 2 * delta;
+			var rotateAngle = Math.PI / 3 * delta;
 			var moveDistance = 500 * delta;
 		
+			for(var i=0;i<100;i++){
+				this.rocks[i].translateX( -moveDistance * 2 );
+				this.rocks[i].translateY( -moveDistance * 2 );
+				if(this.rocks[i].position.x < -2000 || this.rocks[i].position.y < -2000){
+					var xPos = Math.floor(Math.random() * (1000)) - 200
+					var yPos = Math.floor(Math.random() * (1000)) - 200
+					var zPos= Math.floor(Math.random() * (1000)) - 200
+
+					this.rocks[i].position.set( 10 + xPos, 20 + yPos, 10+ zPos );
+				}
+			}
+			
+			
+			if(this.goalCount > 50){
+				this.goalCount = 0;
+				this.goal = parseFloat((Math.random()*0.5 - 0.25).toFixed(2));
+			}
+
+			for(var i=0;i<8;i++){
+				this.fire[i].translateX( this.goal );
+			}
+			this.house.translateX( this.goal );
+			
 			if ( this.defaults.VIEW_MODE == 1 ) {
-				if( this.keyboard.pressed( this.defaults.MOVE_DOWN ) ){
-					this.chasePlayer.translateZ( moveDistance );
-				}
-				if( this.keyboard.pressed( this.defaults.MOVE_UP ) ){
-					this.chasePlayer.translateZ( -moveDistance );
-				}
 				if( this.keyboard.pressed( this.defaults.MOVE_LEFT ) ){
 					this.chasePlayer.rotateOnAxis( new THREE.Vector3(0,1,0), rotateAngle );
 				}
 				if( this.keyboard.pressed( this.defaults.MOVE_RIGHT ) ){
 					this.chasePlayer.rotateOnAxis( new THREE.Vector3(0,1,0), -rotateAngle );
 				}
-			}else if( this.defaults.VIEW_MODE == -1 ) {
-				if( this.keyboard.pressed( this.defaults.MOVE_DOWN ) ){
-					this.house.translateZ( moveDistance );
-				}
-				if( this.keyboard.pressed( this.defaults.MOVE_UP ) ){
-					this.house.translateZ( -moveDistance );
-				}
-				if( this.keyboard.pressed( this.defaults.MOVE_LEFT ) ){
-					this.house.translateX( -moveDistance );
-				}
-				if( this.keyboard.pressed( this.defaults.MOVE_RIGHT ) ){
-					this.house.translateX( moveDistance );
-				}
-			}
-
-			
-			/* ----- View Change Switch ----- */
-			if ( !this.keyPress && this.keyboard.pressed( this.defaults.VIEW_SWITCH ) ) { 
-				var self = this;
-				this.keyPress = true;
-				this.defaults.VIEW_MODE = -this.defaults.VIEW_MODE;
-				setTimeout(function(){
-					self.keyPress = false;
-				},500);
-			}
-			if ( !this.keyPress && this.keyboard.pressed( this.defaults.OPACITY_SWITCH ) ) { 
-				var self = this;
-				this.keyPress = true;
-				this.defaults.OPACITY_MODE = -this.defaults.OPACITY_MODE;
-				setTimeout(function(){
-					self.keyPress = false;
-				},500);
 			}
 			
 			this.controls.update();
@@ -275,7 +266,7 @@ DrawWebGL.prototype = {
 					this.chaseScene();
 					this.renderScene( this.chaseCamera );
 				}else{
-					this.mouseScene();					
+//					this.mouseScene();					
 					this.renderScene( this.topCamera );
 				}
 				
@@ -338,13 +329,49 @@ DrawWebGL.prototype = {
 		
 		/* ----- Loading Player ----- */
 		loadPlayer : function( posx, posy, posz ){
-			var sphereGeometry = new THREE.SphereGeometry( 50, 32, 16 ); 
-			var sphereMaterial = new THREE.MeshLambertMaterial( {color: 0xff0000} ); 
+			var sphereGeometry = new THREE.SphereGeometry( 1, 2, 1 ); 
+			var sphereMaterial = new THREE.MeshLambertMaterial( {color: 0xffffff} ); 
 			this.chasePlayer = new THREE.Mesh(sphereGeometry, sphereMaterial);
 			this.chasePlayer.position.set( posx, posy, posz );
 			this.scene.add(this.chasePlayer);
 		},
 		
+		/* ----- Loading Rock ----- */
+		loadRock : function( posx, posy, posz ){
+			var sphereGeometry = new THREE.SphereGeometry( 50, 32, 16 ); 
+			var sphereMaterial = new THREE.MeshLambertMaterial( {color: 0xfffff0} ); 
+			for(var i=0;i<100;i++){
+				if(i % 10 == 0){
+					var xScale = Math.floor(Math.random() * (10 - 1 + 1)) + 1
+					var yScale = Math.floor(Math.random() * (10 - 1 + 1)) + 1
+					var zScale = Math.floor(Math.random() * (10 - 1 + 1)) + 1
+					
+					sphereGeometry = new THREE.SphereGeometry( 5 + xScale, 5 + yScale, 5 + zScale ); 
+					sphereMaterial = new THREE.MeshLambertMaterial( {color: 0xffffff} ); 
+				}
+				
+				var xPos = Math.floor(Math.random() * (1000)) - 500
+				var yPos = Math.floor(Math.random() * (1000)) - 500
+				var zPos= Math.floor(Math.random() * (1000)) - 500
+
+				this.rocks[i] = new THREE.Mesh(sphereGeometry, sphereMaterial);
+				this.rocks[i].position.set( posx + xPos, posy + yPos, posz + zPos );
+				this.scene.add(this.rocks[i]);
+			}
+		},
+
+		loadFire : function( posx, posy, posz ){
+			var locate = 4;
+			for(var i=0;i<8;i++){
+				var sphereGeometry = new THREE.SphereGeometry( 5 - i*0.5, 32, 16 ); 
+				var sphereMaterial = new THREE.MeshLambertMaterial( {color: 0xff0000} ); 
+				this.fire[i] = new THREE.Mesh(sphereGeometry, sphereMaterial);
+				this.fire[i].position.set( posx - locate, posy - locate, posz );
+				this.scene.add(this.fire[i]);
+				locate += 4;
+			}
+		},
+
 		/**--------- Setting Mouse ---------**/
 	
 		onDocumentMouseMove : function( event ) {

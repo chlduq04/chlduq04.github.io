@@ -57,3 +57,7 @@ body{
 	border-radius: 15px;
 	background-color: cornflowerblue;
 }
+body{
+    background-image:url('../IMAGE/background.jpg');
+    background-size:cover;
+}

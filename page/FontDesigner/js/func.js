@@ -117,6 +117,18 @@ listener.prototype.valueChecking = function(){
 		self.vc.changeValue( findTarget.attr("target") , value + findUnit)
 	})
 
+	$(".eachCssValue[option='text']").keydown(function(e){
+		
+		var findTarget = $(this).parent(".eachCssDiv");
+		var value = $(this).val() || "";
+		self.vc.changeValue( findTarget.attr("target") , value)
+
+	}).keyup(function(){
+		var findTarget = $(this).parent(".eachCssDiv");
+		var value = $(this).val() || "";
+		self.vc.changeValue( findTarget.attr("target") , value)
+	})
+
 	$("#textareaInput").change(function(){
 		divText.text($(this).val());
 	}).keydown(function(){
